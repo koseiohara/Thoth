@@ -36,7 +36,7 @@ After making these settings, open the Notion software and make a new private pag
 1. Click `Connect to`. Then, click the connection you generated before
 1. Click `Copy link` button in the same `...` and note it somewhere
 
-### Python Setup
+### <a id="PythonSetup">Python Setup</a>
 `thoth` needs `notion-client` and `requests`
 ```sh
 $ pip install notion-client
@@ -46,8 +46,18 @@ Make `.notion_token.csv` at your home directory
 ```sh
 $ touch ~/.notion_token.csv
 ```
-Write the "referenceManager", internal integration secret, and Notion page link in the first line of `.notion_token.csv`
+Write the "referenceManager", internal integration secret, and Notion page link in the first line of `~/.notion_token.csv`
 ```csv
 referenceManager,ntn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
+
+## Usage
+When `thoth` is used for the first time, initialize the Notion page
+```sh
+$ thoth init
+```
+This command will edit `~/.notion_token.csv` for future thoth execution.
+Also, a database will be inserted to the Notion page.
+
+If you want to initialize `thoth` again, `referenceManager` line in the `~/.notion_token.csv` need to be deleted and rewritten by the same way as [Python Setup](#PythonSetup).
 
