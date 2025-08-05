@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 from sys           import argv
 from notion_client import Client
 
@@ -9,7 +10,8 @@ from notion_payload import duplication, addPaper, addChildPage
 from database_init  import init
 
 
-INDEX = '.token.csv'
+INDEX = os.path.expanduser('~/.notion_token.csv')
+FLAG  = 'referenceManager'
 
 
 narg = len(argv)
@@ -25,9 +27,9 @@ if (narg == 1):
     exit(0)
 
 if (argv[1] == 'init'):
-    init(INDEX)
+    init(INDEX, FLAG)
 elif (argv[1] == 'add' and narg >= 3):
-    info = getToken(INDEX, 'referenceManager')
+    info = getToken(INDEX, FLAG)
     token, page_id, database_id = info[1], info[2], info[3]
     notion = Client(auth=token)
 

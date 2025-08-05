@@ -2,10 +2,9 @@ from notion_client import Client
 
 from getToken import getToken
 
-flag = 'referenceManager'
 
-def init(INDEX):
-    info = getToken(INDEX, flag)
+def init(INDEX, FLAG):
+    info = getToken(INDEX, FLAG)
     secret   = info[1]
     pagelink = info[2]
 
@@ -16,7 +15,7 @@ def init(INDEX):
 
     databaseid = genDatabase(secret, pageid)
 
-    updateCsv(INDEX, flag, secret, pageid, databaseid)
+    updateCsv(INDEX, FLAG, secret, pageid, databaseid)
 
 
 
@@ -69,14 +68,14 @@ def genDatabase(secret, pageid):
     return database['id']
 
 
-def updateCsv(identifier, secret, pageid, databaseid):
-    newLine = f'{identifier},{secret},{pageid},{databaseid}\n'
+def updateCsv(INDEX, FLAG, secret, pageid, databaseid):
+    newLine = f'{FLAG},{secret},{pageid},{databaseid}\n'
 
     csv = open(INDEX, 'r+')
     output = ''
     for line in csv:
         result = line.split(',')
-        if (result[0] == identifier):
+        if (result[0] == FLAG):
             output = output + newLine
         else:
             output = output + line
