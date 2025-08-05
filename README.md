@@ -26,5 +26,5 @@ $ make uninstall
 ```
 
 ## Setup
-Before executing `thoth`, you need to set up Notion from <a id='https://www.notion.so/profile/integrations'>this page</a>
+Before executing `thoth`, you need to set up Notion from [this page]('https://www.notion.so/profile/integrations')
 
