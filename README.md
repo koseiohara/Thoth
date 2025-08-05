@@ -36,7 +36,7 @@ After making these settings, open the Notion software and make a new private pag
 1. Click `Connect to`. Then, click the connection you generated before
 1. Click `Copy link` button in the same `...` and note it somewhere
 
-### <a id="PythonSetup">Python Setup</a>
+### Python Setup<a id="PythonSetup"></a>
 `thoth` needs `notion-client` and `requests`
 ```sh
 $ pip install notion-client
