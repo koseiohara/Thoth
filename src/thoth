@@ -9,6 +9,9 @@ from notion_payload import duplication, addPaper, addChildPage
 from database_init  import init
 
 
+INDEX = '.token.csv'
+
+
 narg = len(argv)
 
 if (narg == 1):
@@ -22,9 +25,9 @@ if (narg == 1):
     exit(0)
 
 if (argv[1] == 'init'):
-    init()
+    init(INDEX)
 elif (argv[1] == 'add' and narg >= 3):
-    info = getToken('.token.csv', 'referenceManager')
+    info = getToken(INDEX, 'referenceManager')
     token, page_id, database_id = info[1], info[2], info[3]
     notion = Client(auth=token)
 
