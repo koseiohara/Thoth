@@ -64,8 +64,14 @@ If you want to initialize `thoth` again, the `referenceManager` line in `~/.noti
 Now `thoth` is ready to manage articles.
 You can add new bibliographic information from the command line
 ```sh
-$ thoth add "doi_of_article"
+$ thoth add "doi_of_article1" "doi_of_article2" ...
 ```
+When a subpage is created, an article is registered in the database.
+The `Title` column in each row of the database has a link to a subpage.
+You can change the order and the width of columns in the database as you like.  
+
+Strongly recommend adding the article's PDF file to every subpage by the `/pdf` Notion command.
+
 
 
 
