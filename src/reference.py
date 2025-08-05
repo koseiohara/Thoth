@@ -1,0 +1,86 @@
+import requests
+
+
+def reference(doi):
+    query = reference_query(doi)
+    default(query, doi)
+    query['author'] = getAuthors(query['author'])
+    query['published'] = getDateTime(query['published'])
+    #query['reference'] = getCitation(query['reference'])
+
+    if (query['issue'] is not None):
+        query['issue'] = int(query['issue'])
+
+    if (query['volume'] is not None):
+        query['volume'] = int(query['volume'])
+
+    return query
+
+
+def default(query, doi):
+    query['author']    = query.setdefault('author'   , None)
+    query['title']     = query.setdefault('title'    , None)
+    query['publisher'] = query.setdefault('publisher', None)
+    query['published'] = query.setdefault('published', None)
+    query['issue']     = query.setdefault('issue'    , None)
+    query['volume']    = query.setdefault('volume'   , None)
+    query['page']      = query.setdefault('page'     , None)
+    query['DOI']       = doi
+    query['URL']       = query.setdefault('URL'      , None)
+
+
+def getAuthors(authors):
+    if (authors == None):
+        return None
+    authors_num = len(authors)
+    output = ['']*authors_num
+    for i in range(authors_num):
+        given  = authors[i]['given']
+        family = authors[i]['family']
+        
+        output[i] = f'{family}, {given}'
+
+    return output
+
+
+def getDateTime(published):
+    if (published == None):
+        return None
+    return published['date-parts'][0]
+    #return [int(s) for s in published['date-parts'][0]]
+
+
+def getCitation(cite):
+    if (cite == None):
+        return None
+    cite_num = len(cite)
+    output = ['']*cite_num
+    for i in range(cite_num):
+        print(cite[i])
+        output[i] = cite[i]['unstructured']
+
+    return output
+
+
+def reference_query(doi):
+    base_url = 'https://doi.org/'
+    url = f'{base_url}{doi}'
+
+    headers = {
+        'Accept': "application/vnd.citationstyles.csl+json",
+        'Yser-Agent': 'python-requests'
+    }
+
+    result = requests.get(url, headers=headers, timeout=10.)
+    try:
+        result.raise_for_status()
+    except:
+        raise ValueError(f'DOI {doi} does not exist')
+
+    data = result.json()
+    #if (data.get('status') != 'ok' or 'message' not in data):
+    #    raise ValueError(f'Invalid response: {data}')
+
+    return data
+
+

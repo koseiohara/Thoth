@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+from sys           import argv
+from notion_client import Client
+
+from getToken       import getToken
+from reference      import reference
+from notion_payload import duplication, addPaper, addChildPage
+from database_init  import init
+
+
+narg = len(argv)
+
+if (narg == 1):
+    print('\n')
+    print('Usage:')
+    print('  thoth <command> [doi]\n')
+    print('Commands')
+    print('  init  Inisialize a Notion page')
+    print('  add   Add new paper')
+    print('\n')
+    exit(0)
+
+if (argv[1] == 'init'):
+    init()
+elif (argv[1] == 'add' and narg >= 3):
+    info = getToken('.token.csv', 'referenceManager')
+    token, page_id, database_id = info[1], info[2], info[3]
+    notion = Client(auth=token)
+
+    for i in range(2, narg):
+        doi = argv[i]
+
+        if (duplication(notion, database_id, doi)):
+            continue
+
+        data   = reference(doi)
+        status, subpage_id = addChildPage(notion, page_id, data)
+        status = addPaper(notion, database_id, subpage_id, data)
+
+
+
