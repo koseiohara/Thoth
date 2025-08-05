@@ -57,7 +57,16 @@ When `thoth` is used for the first time, initialize the Notion page
 $ thoth init
 ```
 This command will edit `~/.notion_token.csv` for future thoth execution.
-Also, a database will be inserted to the Notion page.
+Also, a database will be inserted to the Notion page.  
 
-If you want to initialize `thoth` again, `referenceManager` line in the `~/.notion_token.csv` need to be deleted and rewritten by the same way as [Python Setup](#PythonSetup).
+If you want to initialize `thoth` again, the `referenceManager` line in `~/.notion_token.csv` need to be deleted and rewritten exactly as in the [Python Setup](#PythonSetup).  
+
+Now `thoth` is ready to manage articles.
+You can add new bibliographic information from the command line
+```sh
+$ thoth add "doi_of_article"
+```
+
+
+
 
