@@ -73,11 +73,11 @@ def addPaper(notion, database_id, subpage_id, paper):
             'number': int(paper['published'][0])
         }
 
-    if (paper['publisher'] is not None):
+    if (paper['journal'] is not None):
         payload['Journal'] = {
             'multi_select': [
                 {
-                    'name': paper['publisher']                }
+                    'name': paper['journal']                }
             ]
         }
 
@@ -214,9 +214,9 @@ def childPage_database(notion, new_page_id, paper):
             'number': int(paper['published'][0])
         }
 
-    if (paper['publisher'] is not None):
+    if (paper['journal'] is not None):
         payload['Journal'] = {
-            'rich_text': make_rich_text(paper['publisher'])
+            'rich_text': make_rich_text(paper['journal'])
         }
 
     if (paper['issue'] is not None):
@@ -255,7 +255,7 @@ def childPage_paragraph(notion, new_page_id, paper):
     info_list = []
     paragraph_append(info_list, 'Title', paper['title'])
     paragraph_append(info_list, 'Authors', '; '.join(paper['author']))
-    paragraph_append(info_list, 'Journal', paper['publisher'])
+    paragraph_append(info_list, 'Journal', paper['journal'])
     paragraph_append(info_list, 'Year', paper['published'][0])
     paragraph_append(info_list, 'Issue', paper['issue'])
     paragraph_append(info_list, 'Volume', paper['volume'])

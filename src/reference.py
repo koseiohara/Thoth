@@ -14,15 +14,27 @@ def reference(doi):
 
 
 def default(query, doi):
-    query['author']    = query.setdefault('author'   , None)
-    query['title']     = query.setdefault('title'    , None)
-    query['publisher'] = query.setdefault('publisher', None)
-    query['published'] = query.setdefault('published', None)
-    query['issue']     = query.setdefault('issue'    , None)
-    query['volume']    = query.setdefault('volume'   , None)
-    query['page']      = query.setdefault('page'     , None)
+    query['author']    = query.setdefault('author'         , None)
+    query['title']     = query.setdefault('title'          , None)
+    query['publisher'] = query.setdefault('publisher'      , None)
+    query['journal']   = query.setdefault('container-title', None)
+    query['published'] = query.setdefault('published'      , None)
+    query['issue']     = query.setdefault('issue'          , None)
+    query['volume']    = query.setdefault('volume'         , None)
+    query['page']      = query.setdefault('page'           , None)
     query['DOI']       = doi
-    query['URL']       = query.setdefault('URL'      , None)
+    query['URL']       = query.setdefault('URL'            , None)
+
+    #try:
+    #    query['journal'] = query['content-domain']['short-container-title'][0]
+    #    if (query['journal'] == []):
+    #        raise ValueError
+    #    print(query['journal'])
+    #except:
+    #    query['journal']   = query.setdefault('journal', None)
+
+    if (query['journal'] is None or query['journal'] == []):
+        query['journal'] = query['publisher']
 
 
 def getAuthors(authors):
