@@ -47,7 +47,7 @@ Make `.notion_token.csv` in your home directory
 $ touch ~/.notion_token.csv
 ```
 Write the "referenceManager", internal integration secret, and Notion page link in `~/.notion_token.csv`
-```csv
+```csv:.notion_token.csv
 referenceManager,ntn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,https://www.notion.so/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
@@ -75,7 +75,20 @@ When you want to add multiple references in a single command, the `--file` optio
 $ thoth add --file file1.txt file2.txt ...
 ```
 In this option, one or more files can be specified.
-In the files, DOIs need to be separated with either newlines `\n` or commas `,`.
+In the files, DOIs need to be separated with either newlines `\n` or commas `,` like:
+```text
+doi1
+doi2
+...
+```
+```text
+doi1,doi2,...
+```
+or
+```text
+doi1,doi2
+doi3,doi4,...
+```
 
 Strongly recommend adding the article's PDF file to every subpage by the `/pdf` Notion command.
 
