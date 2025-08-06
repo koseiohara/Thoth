@@ -8,6 +8,7 @@ from getToken       import getToken
 from reference      import reference
 from notion_payload import duplication, addPaper, addChildPage
 from database_init  import init
+from help           import help
 
 
 INDEX = os.path.expanduser('~/.notion_token.csv')
@@ -17,31 +18,32 @@ FLAG  = 'referenceManager'
 narg = len(argv)
 
 if (narg == 1):
-    print('\n')
-    print('Usage:')
-    print('  thoth <command> [doi]\n')
-    print('Commands')
-    print('  init  Inisialize a Notion page')
-    print('  add   Add new paper')
-    print('\n')
-    exit(0)
+    help()
 
 if (argv[1] == 'init'):
     init(INDEX, FLAG)
-elif (argv[1] == 'add' and narg >= 3):
-    info = getToken(INDEX, FLAG)
-    token, page_id, database_id = info[1], info[2], info[3]
-    notion = Client(auth=token)
+elif (argv[1] == 'add'):
+    if (narg >= 3):
+        info = getToken(INDEX, FLAG)
+        if ('https://' in info[2].strip()):
+            raise ValueError('Invalid page id. Use "thoth init" at first')
+        token, page_id, database_id = info[1].strip(), info[2].strip(), info[3].strip()
 
-    for i in range(2, narg):
-        doi = argv[i]
+        notion = Client(auth=token)
 
-        if (duplication(notion, database_id, doi)):
-            continue
+        for i in range(2, narg):
+            doi = argv[i]
 
-        data   = reference(doi)
-        status, subpage_id = addChildPage(notion, page_id, data)
-        status = addPaper(notion, database_id, subpage_id, data)
+            if (duplication(notion, database_id, doi)):
+                continue
+
+            data   = reference(doi)
+            status, subpage_id = addChildPage(notion, page_id, data)
+            status = addPaper(notion, database_id, subpage_id, data)
+    else:
+        help()
+else:
+    help()
 
 
 

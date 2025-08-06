@@ -1,3 +1,4 @@
+import re
 from notion_client import Client
 
 from getToken import getToken
@@ -11,12 +12,17 @@ def init(INDEX, FLAG):
     if (pagelink[:22] != 'https://www.notion.so/'):
         raise ValueError('Invlid Notion Page Link. Reference may have already been initialized')
 
-    pageid = pagelink[22:54]
+    #pageid = pagelink[22:54]
+    pageid = extract_pageid(pagelink)
 
     databaseid = genDatabase(secret, pageid)
 
     updateCsv(INDEX, FLAG, secret, pageid, databaseid)
 
+
+def extract_pageid(url):
+    result = re.search(r'([0-9a-f]{32})', url)
+    return result.group(1)
 
 
 def genDatabase(secret, pageid):
