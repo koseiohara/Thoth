@@ -31,7 +31,7 @@ Before running `thoth`, configure Notion integrations via [this page](https://ww
 1. Click `New Integration`
 1. Fill in the required fields and click `Save`.
 1. Copy the Internal Integration Secret and note it somewhere. You should enable `Read content`, `Update content`, `Insert content`, and `No user information` in the Content Capabilities
-Then, open the Notion and create a new private page.
+1. Open the Notion and create a new private page
 1. Click `...` at the top right
 1. Click `Connect to`, then choose the connection you generated before
 1. Click `Copy link` button in the same `...` and note it somewhere
@@ -56,7 +56,8 @@ When using `thoth` for the first time, initialize the Notion page
 ```sh
 $ thoth init
 ```
-This command updates `~/.notion_token.csv` and inserts a database into the Notion page.  
+This command updates `~/.notion_token.csv` and inserts a database into the Notion page.
+You can reorder and resize columns in the database as desired.  
 
 To reinitialize `thoth`, delete and re-add the `referenceManager` line in `~/.notion_token.csv` as described in [Python Setup](#PythonSetup).  
 
@@ -65,9 +66,16 @@ To add new bibliography entries from the command line
 ```sh
 $ thoth add "doi_of_article1" "doi_of_article2" ...
 ```
+One or more DOIs can be specified.
 Each time you add an article, a subpage is created in the page.
-The `Title` column in each row of the database has a link to a subpage.
-You can reorder and resize columns in the database as desired.
+The `Title` column in each row of the database has a link to a subpage.  
+
+When you want to add multiple references in a single command, the `--file` option is convenient.
+```sh
+$ thoth add --file file1.txt file2.txt ...
+```
+In this option, one or more files can be specified.
+In the files, DOIs need to be separated with either newlines `\n` or commas `,`.
 
 Strongly recommend adding the article's PDF file to every subpage by the `/pdf` Notion command.
 
