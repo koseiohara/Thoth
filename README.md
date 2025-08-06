@@ -5,6 +5,7 @@ Source code is based on Python and using the Notion-API.
 
 ## Test Environment
 - macOS Sequoia 15.1
+    - zsh 5.9
 - Notion 4.16.2
 - Python 3.9.6
     - notion-client 2.4.0
@@ -89,8 +90,6 @@ or
 doi1,doi2
 doi3,doi4,...
 ```
-
-Strongly recommend adding the article's PDF file to every subpage by the `/pdf` Notion command.
 
 
 
