@@ -10,7 +10,7 @@ def getToken(file, flag):
             return result
 
     csv.close()
-    return ['ERROR']
+    return None
 
 
 

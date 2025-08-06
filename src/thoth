@@ -5,6 +5,7 @@ from sys           import argv
 from notion_client import Client
 
 from getToken       import getToken
+from getDOI         import doiFromFile
 from reference      import reference
 from notion_payload import duplication, addPaper, addChildPage
 from database_init  import init
@@ -22,30 +23,64 @@ if (narg == 1):
 
 if (argv[1] == 'init'):
     init(INDEX, FLAG)
+
 elif (argv[1] == 'add'):
 
-    if ('--file' in  argv):
+    if ('--file' in argv):
+        # Check the position of "--file" ... to enable both "thoth add file.txt --file" and "thoth add --file file.txt"
         option_idx = argv.index('--file')
 
-    if (narg >= 3):
-        info = getToken(INDEX, FLAG)
-        if ('https://' in info[2].strip()):
-            raise ValueError('Invalid page id. Use "thoth init" at first')
-        token, page_id, database_id = info[1].strip(), info[2].strip(), info[3].strip()
+        if (narg <= 3):
+            # If the command is "thoth add --file" only, then make an error message
+            help()
 
-        notion = Client(auth=token)
-
+        doi_list = []
+        # Read and get all doi from all files and make a doi list
         for i in range(2, narg):
-            doi = argv[i]
-
-            if (duplication(notion, database_id, doi)):
+            if (i == option_idx):
+                # Skip if argv[i] is "--file"
                 continue
 
-            data   = reference(doi)
-            status, subpage_id = addChildPage(notion, page_id, data)
-            status = addPaper(notion, database_id, subpage_id, data)
+            doi_list = doi_list + doiFromFile(argv[i])
+
+    elif (narg >= 3):
+        # If the command-line-argument is DOI like "thoth add 'any_doi'"
+        doi_list = argv[2:narg]
     else:
+        # If command was only "thoth add"
         help()
+
+    print(doi_list)
+
+    info = getToken(INDEX, FLAG)
+    if (info is None):
+        # If referenceManager flag is not found in the first column
+        raise ValueError(f'Line for thoth was not found in {INDEX}: need "referenceManager,notion_integration_secret,notion_page_link"')
+    if (len(info) < 3):
+        # If only one or two column is found
+        raise ValueError(f'Invalid {INDEX} format: should be "referenceManager,notion_integration_secret,notion_page_link"')
+    if ('https://' in info[2].strip()):
+        # If the third column is URL
+        raise ValueError('Invalid page id. Use "thoth init" at first')
+
+    token, page_id, database_id = info[1].strip(), info[2].strip(), info[3].strip()
+
+    # Initialize access
+    notion = Client(auth=token)
+
+    for doi in doi_list:
+
+        if (duplication(notion, database_id, doi)):
+            # If the specified DOI has already exist, skip process
+            continue
+
+        # Get information of the article
+        data   = reference(doi)
+        # Create subpage
+        status, subpage_id = addChildPage(notion, page_id, data)
+        # Add to database
+        status = addPaper(notion, database_id, subpage_id, data)
+
 else:
     help()
 
