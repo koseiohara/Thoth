@@ -50,7 +50,6 @@ elif (argv[1] == 'add'):
         # If command was only "thoth add"
         help()
 
-    print(doi_list)
 
     info = getToken(INDEX, FLAG)
     if (info is None):
