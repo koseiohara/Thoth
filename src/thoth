@@ -23,6 +23,10 @@ if (narg == 1):
 if (argv[1] == 'init'):
     init(INDEX, FLAG)
 elif (argv[1] == 'add'):
+
+    if ('--file' in  argv):
+        option_idx = argv.index('--file')
+
     if (narg >= 3):
         info = getToken(INDEX, FLAG)
         if ('https://' in info[2].strip()):
