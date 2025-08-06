@@ -83,12 +83,12 @@ def addPaper(notion, database_id, subpage_id, paper):
 
     if (paper['issue'] is not None):
         payload['Issue'] = {
-            'number': paper['issue']
+            'rich_text': make_rich_text(paper['issue'])
         }
 
     if (paper['volume'] is not None):
         payload['Volume'] = {
-            'number': paper['volume']
+            'rich_text': make_rich_text(paper['volume'])
         }
 
     if (paper['page'] is not None):
@@ -166,10 +166,10 @@ def childPage_database(notion, new_page_id, paper):
             'number': {}
         },
         'Issue': {
-            'number': {}
+            'rich_text': {}
         },
         'Volume': {
-            'number': {}
+            'rich_text': {}
         },
         'Pages': {
             'rich_text': {}
@@ -221,12 +221,12 @@ def childPage_database(notion, new_page_id, paper):
 
     if (paper['issue'] is not None):
         payload['Issue'] = {
-            'number': int(paper['issue'])
+            'rich_text': make_rich_text(paper['issue'])
         }
 
     if (paper['volume'] is not None):
         payload['Volume'] = {
-            'number': int(paper['volume'])
+            'rich_text': make_rich_text(paper['volume'])
         }
 
     if (paper['page'] is not None):

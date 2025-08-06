@@ -7,12 +7,8 @@ def reference(doi):
     query['author'] = getAuthors(query['author'])
     query['published'] = getDateTime(query['published'])
     #query['reference'] = getCitation(query['reference'])
-
-    if (query['issue'] is not None):
-        query['issue'] = int(query['issue'])
-
-    if (query['volume'] is not None):
-        query['volume'] = int(query['volume'])
+    query['issue']  = query['issue']
+    query['volume'] = query['volume']
 
     return query
 

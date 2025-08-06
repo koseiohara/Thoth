@@ -49,10 +49,10 @@ def genDatabase(secret, pageid):
             'number': {}
         },
         'Issue': {
-            'number': {}
+            'rich_text': {}
         },
         'Volume': {
-            'number': {}
+            'rich_text': {}
         },
         'Pages': {
             'rich_text': {}
