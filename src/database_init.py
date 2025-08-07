@@ -28,7 +28,7 @@ def extract_pageid(url):
 def genDatabase(secret, pageid):
     notion = Client(auth=secret)
 
-    properties = {}
+    #properties = {}
     properties = {
         'Title': {
             'title': {}

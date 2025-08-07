@@ -4,12 +4,12 @@ import os
 from sys           import argv
 from notion_client import Client
 
-from getToken       import getToken
-from getDOI         import doiFromFile
-from reference      import reference
-from notion_payload import duplication, addPaper, addChildPage
-from database_init  import init
-from help           import help
+from getToken      import getToken
+from getDOI        import doiFromFile
+from reference     import reference
+from notion_add    import duplication, addPaper, addChildPage
+from database_init import init
+from help          import help
 
 
 INDEX = os.path.expanduser('~/.notion_token.csv')

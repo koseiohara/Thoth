@@ -151,7 +151,7 @@ def childPage_database(notion, new_page_id, paper):
     else:
         title = ''
 
-    properties = {}
+    #properties = {}
     properties = {
         'Title': {
             'title': {}
