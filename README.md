@@ -58,7 +58,7 @@ When using `thoth` for the first time, initialize the Notion page
 $ thoth init
 ```
 This command updates `~/.notion_token.csv` and inserts a database into the Notion page.
-You can reorder and resize columns in the database as desired.  
+You can reorder, resize, and add columns in the database as desired; however, you cannot delete the default columns.  
 
 To reinitialize `thoth`, delete and re-add the `referenceManager` line in `~/.notion_token.csv` as described in [Python Setup](#PythonSetup).  
 
