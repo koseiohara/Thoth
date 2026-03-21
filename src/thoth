@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+import warnings
+warnings.filterwarnings(
+    'ignore',
+    message=r'urllib3 v2 only supports OpenSSL*',
+    module=r'urllib3'
+)
+
 import os
 from sys           import argv
 from notion_client import Client
@@ -10,6 +17,7 @@ from reference     import reference
 from notion_add    import duplication, addPaper, addChildPage
 from database_init import init
 from help          import help
+
 
 
 INDEX = os.path.expanduser('~/.notion_token.csv')

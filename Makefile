@@ -1,6 +1,6 @@
 INSTALL = $(HOME)/PythonLib/lib
 
-.PHONY : install uninstall
+.PHONY : install uninstall re
 
 install :
 	cp -vr src/ $(INSTALL)/thoth_src
@@ -9,4 +9,6 @@ install :
 uninstall :
 	unlink $(INSTALL)/thoth
 	rm -rfv $(INSTALL)/thoth_src
+
+re : uninstall install
 
