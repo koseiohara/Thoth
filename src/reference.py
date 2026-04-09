@@ -76,7 +76,7 @@ def reference_query(doi):
 
     headers = {
         'Accept': "application/vnd.citationstyles.csl+json",
-        'Yser-Agent': 'python-requests'
+        'User-Agent': 'python-requests'
     }
 
     result = requests.get(url, headers=headers, timeout=10.)

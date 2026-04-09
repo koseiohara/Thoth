@@ -119,7 +119,7 @@ def addChildPage(notion, page_id, paper):
     if (paper['title'] is not None):
         title = paper['title']
     else:
-        title = 'Title Unknown: {}'.format(paper['doi'])
+        title = 'Title Unknown: {}'.format(paper['DOI'])
 
 
     # Generate a New Page
